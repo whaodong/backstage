@@ -6,7 +6,7 @@ package common.utils;
  *
  * @author Administrator
  */
-public class ElAdminConstant {
+public class BackstageConstant {
 
     /**
      * 用于IP定位转换
