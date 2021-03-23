@@ -6,17 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author Zheng Jie
- * @date 2019-6-4 13:52:30
- */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Query {
 
-    // Dong ZhaoYang 2017/8/7 基本对象的属性名
+    // 基本对象的属性名
     String propName() default "";
-    // Dong ZhaoYang 2017/8/7 查询方式
+    // 查询方式
     Type type() default Type.EQUAL;
 
     /**

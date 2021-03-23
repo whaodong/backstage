@@ -2,9 +2,7 @@
 package common.utils;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
-import common.annotation.DataPermission;
 import common.annotation.Query;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,20 +22,6 @@ public class QueryHelp {
         List<Predicate> list = new ArrayList<>();
         if(query == null){
             return cb.and(list.toArray(new Predicate[0]));
-        }
-        // 数据权限验证
-        DataPermission permission = query.getClass().getAnnotation(DataPermission.class);
-        if(permission != null){
-            // 获取数据权限
-            List<Long> dataScopes = SecurityUtils.getCurrentUserDataScope();
-            if(CollectionUtil.isNotEmpty(dataScopes)){
-                if(StringUtils.isNotBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
-                    Join join = root.join(permission.joinName(), JoinType.LEFT);
-                    list.add(getExpression(permission.fieldName(),join, root).in(dataScopes));
-                } else if (StringUtils.isBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
-                    list.add(getExpression(permission.fieldName(),null, root).in(dataScopes));
-                }
-            }
         }
         try {
             List<Field> fields = getAllFields(query.getClass(), new ArrayList<>());
