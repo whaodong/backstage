@@ -1,9 +1,0 @@
-rootProject.name = 'backstage'
-include 'backstage-common'
-include 'backstage-generator'
-include 'backstage-system'
-include 'backstage-security'
-include 'backstage-quartz'
-include 'backstage-mnt'
-include 'backstage-tools'
-
