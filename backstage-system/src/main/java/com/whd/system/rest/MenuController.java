@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @author Zheng Jie
- * @date 2018-12-03
- */
 
 @RestController
 @RequiredArgsConstructor
