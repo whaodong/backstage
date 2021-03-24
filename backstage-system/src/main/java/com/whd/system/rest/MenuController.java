@@ -1,13 +1,14 @@
 package com.whd.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.whd.exception.BadRequestException;
 import com.whd.system.domain.Menu;
 import com.whd.system.service.MenuService;
 import com.whd.system.service.dto.MenuDto;
 import com.whd.system.service.dto.MenuQueryCriteria;
 import com.whd.system.service.mapstruct.MenuMapper;
-import com.whd.exception.BadRequestException;
 import com.whd.utils.PageUtil;
+import com.whd.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class MenuController {
     @GetMapping(value = "/build")
     @ApiOperation("获取前端所需菜单")
     public ResponseEntity<Object> buildMenus() throws Exception {
-        List<MenuDto> menuDtoList = menuService.queryAll(new MenuQueryCriteria(), true);
+        List<MenuDto> menuDtoList = menuService.findByUser(SecurityUtils.getCurrentUserId());
         List<MenuDto> menuDtos = menuService.buildTree(menuDtoList);
         return new ResponseEntity<>(menuService.buildMenus(menuDtos),HttpStatus.OK);
     }

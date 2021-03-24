@@ -96,4 +96,6 @@ public interface MenuService {
      * @return /
      */
     List<MenuDto> getSuperior(MenuDto menuDto, List<Menu> objects);
+
+    List<MenuDto> findByUser(Long currentUserId);
 }

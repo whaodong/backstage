@@ -2,16 +2,18 @@ package com.whd.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.whd.exception.BadRequestException;
+import com.whd.exception.EntityExistException;
 import com.whd.system.domain.Menu;
 import com.whd.system.domain.vo.MenuMetaVo;
 import com.whd.system.domain.vo.MenuVo;
 import com.whd.system.repository.MenuRepository;
 import com.whd.system.service.MenuService;
+import com.whd.system.service.RoleService;
 import com.whd.system.service.dto.MenuDto;
 import com.whd.system.service.dto.MenuQueryCriteria;
+import com.whd.system.service.dto.RoleSmallDto;
 import com.whd.system.service.mapstruct.MenuMapper;
-import com.whd.exception.BadRequestException;
-import com.whd.exception.EntityExistException;
 import com.whd.utils.FileUtil;
 import com.whd.utils.QueryHelp;
 import com.whd.utils.StringUtils;
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
+    private final RoleService roleService;
     private final MenuMapper menuMapper;
 
     @Override
@@ -187,6 +190,14 @@ public class MenuServiceImpl implements MenuService {
         }
         menus.addAll(menuRepository.findByPid(menuDto.getPid()));
         return getSuperior(findById(menuDto.getPid()), menus);
+    }
+
+    @Override
+    public List<MenuDto> findByUser(Long currentUserId) {
+        List<RoleSmallDto> roles = roleService.findByUsersId(currentUserId);
+        Set<Long> roleIds = roles.stream().map(RoleSmallDto::getId).collect(Collectors.toSet());
+        LinkedHashSet<Menu> menus = menuRepository.findByRoleIdsAndTypeNot(roleIds, 2);
+        return menus.stream().map(menuMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
