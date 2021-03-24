@@ -3,7 +3,7 @@ package com.whd.system.rest;
 import com.whd.system.service.UserService;
 import com.whd.system.service.dto.UserDto;
 import com.whd.system.service.dto.UserQueryCriteria;
-import common.utils.PageUtil;
+import com.whd.utils.PageUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

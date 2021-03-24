@@ -2,8 +2,8 @@ package com.whd.security.config.bean;
 
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
-import common.exception.BadConfigurationException;
-import common.utils.StringUtils;
+import com.whd.exception.BadConfigurationException;
+import com.whd.utils.StringUtils;
 import lombok.Data;
 
 import java.awt.*;

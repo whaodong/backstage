@@ -1,6 +1,6 @@
 package com.whd.system.service.dto;
 
-import common.annotation.Query;
+import com.whd.annotation.Query;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -2,7 +2,7 @@ package com.whd.system.service.mapstruct;
 
 import com.whd.system.domain.Role;
 import com.whd.system.service.dto.RoleSmallDto;
-import common.base.BaseMapper;
+import com.whd.base.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

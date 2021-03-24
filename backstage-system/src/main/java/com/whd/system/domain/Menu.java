@@ -1,6 +1,6 @@
 package com.whd.system.domain;
 
-import common.base.BaseEntity;
+import com.whd.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

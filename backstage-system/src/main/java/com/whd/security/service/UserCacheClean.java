@@ -1,6 +1,6 @@
 package com.whd.security.service;
 
-import common.utils.StringUtils;
+import com.whd.utils.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**

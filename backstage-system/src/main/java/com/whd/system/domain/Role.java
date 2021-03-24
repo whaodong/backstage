@@ -1,8 +1,8 @@
 package com.whd.system.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import common.base.BaseEntity;
-import common.utils.enums.DataScopeEnum;
+import com.whd.base.BaseEntity;
+import com.whd.utils.enums.DataScopeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

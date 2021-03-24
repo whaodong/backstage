@@ -1,6 +1,6 @@
 package com.whd.system.service.dto;
 
-import common.base.BaseDTO;
+import com.whd.base.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
 

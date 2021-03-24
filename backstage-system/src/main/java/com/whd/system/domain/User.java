@@ -1,6 +1,6 @@
 package com.whd.system.domain;
 
-import common.base.BaseEntity;
+import com.whd.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,6 +26,13 @@ public class User extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value = "ID", hidden = true)
     private Long id;
+
+    @ManyToMany
+    @ApiModelProperty(value = "用户角色")
+    @JoinTable(name = "sys_users_roles",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")})
+    private Set<Role> roles;
 
     @NotBlank
     @Column(unique = true)

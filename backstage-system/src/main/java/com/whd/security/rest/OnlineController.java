@@ -1,7 +1,7 @@
 package com.whd.security.rest;
 
 import com.whd.security.service.OnlineUserService;
-import common.utils.EncryptUtils;
+import com.whd.utils.EncryptUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
