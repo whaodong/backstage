@@ -16,10 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * @author Zheng Jie
- * @date 2018-11-23
- */
 @Api(tags = "系统：用户管理")
 @RestController
 @RequestMapping("/api/users")

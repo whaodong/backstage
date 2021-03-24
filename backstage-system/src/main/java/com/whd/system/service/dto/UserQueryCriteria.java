@@ -9,10 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author Zheng Jie
- * @date 2018-11-23
- */
 @Data
 public class UserQueryCriteria implements Serializable {
 

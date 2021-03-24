@@ -8,10 +8,6 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author Zheng Jie
- * @date 2018-11-23
- */
 @Getter
 @Setter
 public class UserDto extends BaseDTO implements Serializable {
