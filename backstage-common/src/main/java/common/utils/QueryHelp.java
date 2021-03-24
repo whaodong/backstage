@@ -24,6 +24,7 @@ public class QueryHelp {
             return cb.and(list.toArray(new Predicate[0]));
         }
         try {
+            1
             List<Field> fields = getAllFields(query.getClass(), new ArrayList<>());
             for (Field field : fields) {
                 boolean accessible = field.isAccessible();
