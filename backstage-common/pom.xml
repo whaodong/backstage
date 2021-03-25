@@ -8,7 +8,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <properties>
-    <hutool.version>5.3.4</hutool.version>
+    <hutool.version>5.6.1</hutool.version>
   </properties>
 
   <artifactId>backstage-common</artifactId>

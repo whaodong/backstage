@@ -51,7 +51,7 @@ spring:
           config:
             multi-statement-allow: true
   freemarker:
-    check-template-location: false
+    check-template-location: true
   profiles:
     active: dev
   jackson:
