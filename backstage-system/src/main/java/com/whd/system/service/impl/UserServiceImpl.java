@@ -1,16 +1,15 @@
 package com.whd.system.service.impl;
 
+import com.whd.exception.EntityExistException;
+import com.whd.exception.EntityNotFoundException;
+import com.whd.security.service.UserCacheClean;
 import com.whd.system.domain.User;
 import com.whd.system.repository.UserRepository;
 import com.whd.system.service.UserService;
 import com.whd.system.service.dto.UserDto;
 import com.whd.system.service.dto.UserQueryCriteria;
 import com.whd.system.service.mapstruct.UserMapper;
-import com.whd.exception.EntityExistException;
-import com.whd.exception.EntityNotFoundException;
-import com.whd.utils.PageUtil;
-import com.whd.utils.QueryHelp;
-import com.whd.utils.ValidationUtil;
+import com.whd.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserCacheClean userCacheClean;
+    private final RedisUtils redisUtils;
 
     @Override
     public Object queryAll(UserQueryCriteria criteria, Pageable pageable) {
@@ -91,6 +92,9 @@ public class UserServiceImpl implements UserService {
         user.setNickName(resources.getNickName());
         user.setGender(resources.getGender());
         userRepository.save(user);
+
+        // 清理缓存
+        delCaches(user.getId(), user.getUsername());
     }
 
     @Override
@@ -105,6 +109,8 @@ public class UserServiceImpl implements UserService {
         user.setPhone(resources.getPhone());
         user.setGender(resources.getGender());
         userRepository.save(user);
+        // 清理缓存
+        delCaches(user.getId(), user.getUsername());
     }
 
     @Override
@@ -113,6 +119,7 @@ public class UserServiceImpl implements UserService {
         for (Long id : ids) {
             // 清理缓存
             UserDto user = findById(id);
+            delCaches(user.getId(), user.getUsername());
         }
         userRepository.deleteAllByIdIn(ids);
     }
@@ -131,5 +138,32 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void updatePass(String username, String pass) {
         userRepository.updatePass(username, pass, new Date());
+        flushCache(username);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateEmail(String username, String email) {
+        userRepository.updateEmail(username, email);
+        flushCache(username);
+    }
+
+    /**
+     * 清理缓存
+     *
+     * @param id /
+     */
+    public void delCaches(Long id, String username) {
+        redisUtils.del(CacheKey.USER_ID + id);
+        flushCache(username);
+    }
+
+    /**
+     * 清理 登陆时 用户缓存信息
+     *
+     * @param username /
+     */
+    private void flushCache(String username) {
+        userCacheClean.cleanUserCache(username);
     }
 }

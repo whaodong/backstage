@@ -70,4 +70,11 @@ public interface UserService {
      * @param resources /
      */
     void updateCenter(User resources);
+
+    /**
+     * 修改邮箱
+     * @param username 用户名
+     * @param email 邮箱
+     */
+    void updateEmail(String username, String email);
 }
