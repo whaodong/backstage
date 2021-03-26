@@ -130,6 +130,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new TokenConfigurer(tokenProvider, properties, onlineUserService, userCacheClean);
     }
 
+    /**
+     * 获得匿名访问标记
+     * @author wanghaodong
+     * @date 2021/3/26 09:54
+     * @param handlerMethodMap
+     * @return java.util.Map<java.lang.String,java.util.Set<java.lang.String>>
+     */
     private Map<String, Set<String>> getAnonymousUrl(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {
         Map<String, Set<String>> anonymousUrls = new HashMap<>(6);
         Set<String> get = new HashSet<>();
