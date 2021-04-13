@@ -1,5 +1,6 @@
 package com.whd.system.rest;
 
+import com.whd.annotation.Log;
 import com.whd.config.RsaProperties;
 import com.whd.exception.BadRequestException;
 import com.whd.system.domain.User;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +41,17 @@ public class UserController {
     private final RoleService roleService;
 
     @ApiOperation("查询用户")
+    @Log("查询用户")
     @GetMapping
+    @PreAuthorize("@pc.check('user:list')")
     public ResponseEntity<Object> query(UserQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @ApiOperation("新增用户")
+    @Log("新增用户")
     @PostMapping
+    @PreAuthorize("@pc.check('user:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody User resources){
         checkLevel(resources);
         // 默认密码 123456
@@ -55,7 +61,9 @@ public class UserController {
     }
 
     @ApiOperation("修改用户")
+    @Log("修改用户")
     @PutMapping
+    @PreAuthorize("@pc.check('user:edit')")
     public ResponseEntity<Object> update(@Validated(User.Update.class) @RequestBody User resources) throws Exception {
         checkLevel(resources);
         userService.update(resources);
@@ -63,6 +71,7 @@ public class UserController {
     }
 
     @ApiOperation("修改用户：个人中心")
+    @Log("修改用户：个人中心")
     @PutMapping(value = "center")
     public ResponseEntity<Object> center(@Validated(User.Update.class) @RequestBody User resources){
         if(!resources.getId().equals(SecurityUtils.getCurrentUserId())){
@@ -73,7 +82,9 @@ public class UserController {
     }
 
     @ApiOperation("删除用户")
+    @Log("删除用户")
     @DeleteMapping
+    @PreAuthorize("@pc.check('user:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
         for (Long id : ids) {
             Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
@@ -103,6 +114,7 @@ public class UserController {
     }
 
     @ApiOperation("修改邮箱")
+    @Log("修改注册邮箱")
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateEmail(@PathVariable String code, @RequestBody User user) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,user.getPassword());
