@@ -1,27 +1,12 @@
 package com.whd.annotation.rest;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import com.whd.annotation.AnonymousAccess;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Annotation for mapping HTTP {@code PUT} requests onto specific handler
- * methods.
- * * 支持匿名访问  PutMapping
- *
- * @author liaojinlong
- * @see AnonymousGetMapping
- * @see AnonymousPostMapping
- * @see AnonymousPutMapping
- * @see RequestMapping
- */
+import java.lang.annotation.*;
+
 @AnonymousAccess
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

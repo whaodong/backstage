@@ -11,15 +11,6 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Annotation for mapping HTTP {@code GET} requests onto specific handler
- * methods.
- * <p>
- * 支持匿名访问   GetMapping
- *
- * @author liaojinlong
- * @see RequestMapping
- */
 @AnonymousAccess
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

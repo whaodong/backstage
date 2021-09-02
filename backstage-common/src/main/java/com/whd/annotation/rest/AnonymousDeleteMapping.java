@@ -7,18 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.lang.annotation.*;
 
-/**
- * Annotation for mapping HTTP {@code DELETE} requests onto specific handler
- * methods.
- * 支持匿名访问  DeleteMapping
- *
- * @author liaojinlong
- * @see AnonymousGetMapping
- * @see AnonymousPostMapping
- * @see AnonymousPutMapping
- * @see AnonymousPatchMapping
- * @see RequestMapping
- */
 @AnonymousAccess
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
